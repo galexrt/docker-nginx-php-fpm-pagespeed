@@ -14,6 +14,7 @@ RUN echo '[nginx]' > /etc/yum.repos.d/nginx.repo && \
         php-pspell php-snmp php-xmlrpc && \
     easy_install pip && \
     pip install supervisor && \
+    mkdir -p /var/log/supervisord/ && \
     sed -i 's/;cgi.fix_pathinfo.*/cgi.fix_pathinfo=0/g' /etc/php.ini && \
     sed -i 's/user.*/user = nginx/g' /etc/php-fpm.d/www.conf && \
     sed -i 's/group.*/group = nginx/g' /etc/php-fpm.d/www.conf && \
