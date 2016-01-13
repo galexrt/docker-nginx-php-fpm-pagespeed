@@ -12,6 +12,7 @@ RUN echo '[nginx]' > /etc/yum.repos.d/nginx.repo && \
         php-pecl-memcache php-pdo php-odbc php-mysql php-mbstring php-ldap \
         php-intl php-gd php-bcmath php-soap php-process php-pear php-recode \
         php-pspell php-snmp php-xmlrpc && \
+    rm -f /etc/nginx/conf.d/* && \
     easy_install pip && \
     pip install supervisor && \
     mkdir -p /var/log/supervisord/ && \
