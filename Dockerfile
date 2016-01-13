@@ -22,6 +22,7 @@ RUN echo '[nginx]' > /etc/yum.repos.d/nginx.repo && \
     rm -rf /tmp/* /var/tmp/*
 
 ADD nginx.conf /etc/nginx/nginx.conf
+ADD nginx-default.conf /etc/nginx/conf.d/default.conf
 ADD supervisord.conf /supervisord.conf
 
 ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/supervisord.conf"]
