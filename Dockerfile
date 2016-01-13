@@ -26,4 +26,4 @@ ADD nginx.conf /etc/nginx/nginx.conf
 ADD nginx-default.conf /etc/nginx/conf.d/default.conf
 ADD supervisord.conf /supervisord.conf
 
-ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/supervisord.conf"]
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
