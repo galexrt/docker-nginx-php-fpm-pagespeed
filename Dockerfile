@@ -16,7 +16,9 @@ RUN echo '[nginx]' > /etc/yum.repos.d/nginx.repo && \
     pip install supervisor && \
     sed -i 's/;cgi.fix_pathinfo.*/cgi.fix_pathinfo=0/g' /etc/php.ini && \
     sed -i 's/user.*/user = nginx/g' /etc/php-fpm.d/www.conf && \
-    sed -i 's/group.*/group = nginx/g' /etc/php-fpm.d/www.conf
+    sed -i 's/group.*/group = nginx/g' /etc/php-fpm.d/www.conf && \
+    yum clean all && \
+    rm -rf /tmp/* /var/tmp/*
 
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD supervisord.conf /supervisord.conf
