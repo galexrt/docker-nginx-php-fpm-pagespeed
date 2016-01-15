@@ -19,7 +19,7 @@ RUN yum -q update -y && \
     sed -i 's/group.*/group = nginx/g' /etc/php-fpm.d/www.conf && \
     cd /root && \
     wget -q https://github.com/pagespeed/ngx_pagespeed/archive/release-${NPS_VERSION}-beta.zip -O release-${NPS_VERSION}-beta.zip && \
-    unzip release-${NPS_VERSION}-beta.zip && \
+    unzip -q release-${NPS_VERSION}-beta.zip && \
     cd ngx_pagespeed-release-${NPS_VERSION}-beta/ && \
     wget -q https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz && \
     tar -xzf ${NPS_VERSION}.tar.gz && \
