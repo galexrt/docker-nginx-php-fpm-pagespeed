@@ -4,8 +4,6 @@ MAINTAINER Alexander Trost <galexrt@googlemail.com>
 
 ENV NPS_VERSION=1.10.33.2 NGINX_VERSION=1.8.0
 
-ADD entrypoint.sh /entrypoint.sh
-
 RUN chmod 755 /entrypoint.sh && \
     yum -q update -y && \
     yum -q install -y wget unzip gcc-c++ pcre-devel zlib-devel make unzip \
