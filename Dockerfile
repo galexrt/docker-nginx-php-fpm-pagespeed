@@ -34,9 +34,9 @@ RUN yum -q update -y && \
     mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ /var/log/nginx /var/log/pagespeed && \
     chown nginx:nginx -R /var/ngx_pagespeed_cache /var/log/pagespeed && \
     rm -rf /root/* && \
-    yum -q remove -y wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip && \
+    yum -q remove -y curl wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip && \
     yum -q clean all && \
-    rm -rf /tmp/* /var/tmp/*
+    rm -rf /tmp/* /var/tmp/* /var/lib/yum /var/cache/yum
 
 ADD nginx.conf /usr/local/nginx/conf/nginx.conf
 ADD nginx-default.conf /etc/nginx/conf.d/default.conf
