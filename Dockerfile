@@ -4,7 +4,10 @@ MAINTAINER Alexander Trost <galexrt@googlemail.com>
 
 ENV NPS_VERSION=1.10.33.2 NGINX_VERSION=1.8.0
 
-RUN yum -q update -y && \
+ADD entrypoint.sh /entrypoint.sh
+
+RUN chmod 755 /entrypoint.sh && \
+    yum -q update -y && \
     yum -q install -y wget unzip gcc-c++ pcre-devel zlib-devel make unzip \
         openssl python-setuptools php-fpm php-common php-mysql php-xml php-pgsql \
         php-pecl-memcache php-pdo php-odbc php-mysql php-mbstring php-ldap \
@@ -31,8 +34,8 @@ RUN yum -q update -y && \
     make && \
     make install && \
     rm -f /etc/nginx/conf.d/* && \
-    mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ /var/log/nginx && \
-    chown nginx:nginx -R /var/ngx_pagespeed_cache && \
+    mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ /var/log/nginx /var/log/pagespeed && \
+    chown nginx:nginx -R /var/ngx_pagespeed_cache /var/log/pagespeed && \
     rm -rf /root/* && \
     yum -q remove -y wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip && \
     yum -q clean all && \
