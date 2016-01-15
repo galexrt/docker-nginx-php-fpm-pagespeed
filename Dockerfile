@@ -36,7 +36,7 @@ RUN yum -q update -y && \
     rm -rf /root/* && \
     yum -q remove -y curl wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip && \
     yum -q clean all && \
-    rm -rf /tmp/* /var/tmp/* /var/lib/yum
+    rm -rf /tmp/* /var/tmp/* /var/lib/yum/* /var/cache/yum/*
 
 ADD nginx.conf /usr/local/nginx/conf/nginx.conf
 ADD nginx-default.conf /etc/nginx/conf.d/default.conf
