@@ -22,10 +22,10 @@ RUN yum -q update -y && \
     unzip release-${NPS_VERSION}-beta.zip && \
     cd ngx_pagespeed-release-${NPS_VERSION}-beta/ && \
     wget -q https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz && \
-    tar -xzvf ${NPS_VERSION}.tar.gz && \
+    tar -xzf ${NPS_VERSION}.tar.gz && \
     cd /root && \
     wget -q http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
-    tar -xvzf nginx-${NGINX_VERSION}.tar.gz && \
+    tar -xzf nginx-${NGINX_VERSION}.tar.gz && \
     cd nginx-${NGINX_VERSION}/ && \
     ./configure --add-module=/root/ngx_pagespeed-release-${NPS_VERSION}-beta ${PS_NGX_EXTRA_FLAGS} && \
     make && \
