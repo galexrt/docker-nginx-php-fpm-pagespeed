@@ -6,11 +6,11 @@ ENV NPS_VERSION=1.10.33.2 NGINX_VERSION=1.8.0
 
 RUN yum -q update -y && \
     yum -q install -y wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip \
-        python-setuptools php-fpm php-common php-mysql php-xml php-pgsql \
+        openssl python-setuptools php-fpm php-common php-mysql php-xml php-pgsql \
         php-pecl-memcache php-pdo php-odbc php-mysql php-mbstring php-ldap \
         php-intl php-gd php-bcmath php-soap php-process php-pear php-recode \
         php-pspell php-snmp php-xmlrpc && \
-    rm -f /etc/nginx/conf.d/* && \
+    adduser -r -m -d /var/cache/nginx -s /sbin/nologin nginx && \
     easy_install pip && \
     pip install supervisor && \
     mkdir -p /var/log/supervisord/ && \
@@ -30,14 +30,18 @@ RUN yum -q update -y && \
     ./configure --add-module=/root/ngx_pagespeed-release-${NPS_VERSION}-beta ${PS_NGX_EXTRA_FLAGS} && \
     make && \
     make install && \
-    mkdir -p /var/ngx_pagespeed_cache && \
+    rm -f /etc/nginx/conf.d/* && \
+    mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ && \
     chown nginx:nginx -R /var/ngx_pagespeed_cache && \
     rm -rf /root/* && \
-    yum clean all && \
+    yum -q remove wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip && \
+    yum -q clean all && \
     rm -rf /tmp/* /var/tmp/*
 
-ADD nginx.conf /etc/nginx/nginx.conf
+ADD nginx.conf /usr/local/nginx/conf/nginx.conf
 ADD nginx-default.conf /etc/nginx/conf.d/default.conf
 ADD supervisord.conf /supervisord.conf
+
+VOLUME ["/usr/share/nginx/html", "/etc/nginx/conf.d/"]
 
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
