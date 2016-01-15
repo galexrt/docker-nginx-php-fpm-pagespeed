@@ -5,7 +5,7 @@ MAINTAINER Alexander Trost <galexrt@googlemail.com>
 ENV NPS_VERSION=1.10.33.2 NGINX_VERSION=1.8.0
 
 RUN yum -q update -y && \
-    yum -q install -y wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip \
+    yum -q install -y wget unzip gcc-c++ pcre-devel zlib-devel make unzip \
         openssl python-setuptools php-fpm php-common php-mysql php-xml php-pgsql \
         php-pecl-memcache php-pdo php-odbc php-mysql php-mbstring php-ldap \
         php-intl php-gd php-bcmath php-soap php-process php-pear php-recode \
@@ -34,7 +34,7 @@ RUN yum -q update -y && \
     mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ && \
     chown nginx:nginx -R /var/ngx_pagespeed_cache && \
     rm -rf /root/* && \
-    yum -q remove wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip && \
+    yum -q remove -y wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip && \
     yum -q clean all && \
     rm -rf /tmp/* /var/tmp/*
 
