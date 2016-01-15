@@ -34,7 +34,9 @@ RUN yum -q update -y && \
     mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ /var/log/nginx /var/log/pagespeed && \
     chown nginx:nginx -R /var/ngx_pagespeed_cache /var/log/pagespeed && \
     rm -rf /root/* && \
+    echo "Test" && \
     yum -q remove -y curl wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip && \
+    echo "Test2" && \
     yum -q clean all && \
     rm -rf /tmp/* /var/tmp/* /var/lib/yum/* /var/cache/yum/*
 
