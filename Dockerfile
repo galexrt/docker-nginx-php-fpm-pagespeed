@@ -30,6 +30,8 @@ RUN yum -q update -y && \
     ./configure --add-module=/root/ngx_pagespeed-release-${NPS_VERSION}-beta ${PS_NGX_EXTRA_FLAGS} && \
     make && \
     make install && \
+    mkdir -p /var/ngx_pagespeed_cache && \
+    chown nginx:nginx -R /var/ngx_pagespeed_cache && \
     rm -rf /root/* && \
     yum clean all && \
     rm -rf /tmp/* /var/tmp/*
