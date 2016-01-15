@@ -5,7 +5,7 @@ MAINTAINER Alexander Trost <galexrt@googlemail.com>
 ENV NPS_VERSION=1.10.33.2 NGINX_VERSION=1.8.0
 
 RUN yum -q update -y && \
-    yum -q install -y gcc-c++ pcre-devel zlib-devel make unzip \
+    yum -q install -y wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip \
         python-setuptools php-fpm php-common php-mysql php-xml php-pgsql \
         php-pecl-memcache php-pdo php-odbc php-mysql php-mbstring php-ldap \
         php-intl php-gd php-bcmath php-soap php-process php-pear php-recode \
