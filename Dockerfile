@@ -31,7 +31,7 @@ RUN yum -q update -y && \
     make && \
     make install && \
     rm -f /etc/nginx/conf.d/* && \
-    mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ && \
+    mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ /var/log/nginx && \
     chown nginx:nginx -R /var/ngx_pagespeed_cache && \
     rm -rf /root/* && \
     yum -q remove -y wget tar unzip gcc-c++ pcre-devel zlib-devel make unzip && \
