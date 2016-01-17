@@ -31,10 +31,9 @@ RUN yum -q update -y && \
     make && \
     make install && \
     rm -f /etc/nginx/conf.d/* && \
-    mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ /var/log/nginx /var/log/pagespeed && \
-    chown nginx:nginx -R /var/ngx_pagespeed_cache /var/log/pagespeed && \
+    mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ /var/log/nginx /var/log/pagespeed /var/lib/php/seesion && \
+    chown nginx:nginx -R /var/ngx_pagespeed_cache /var/log/pagespeed /var/lib/php/session && \
     rm -rf /root/* && \
-     chown -R nginx:root /var/lib/php/ && \
     yum -q remove -y wget tar unzip gcc-c++ pcre-devel zlib-devel make && \
     yum -q clean all && \
     rm -rf /tmp/* /var/tmp/* /var/lib/yum/* /var/cache/yum/*
