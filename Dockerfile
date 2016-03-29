@@ -2,7 +2,7 @@ FROM centos:7.2.1511
 
 MAINTAINER Alexander Trost <galexrt@googlemail.com>
 
-ENV NPS_VERSION=1.10.33.2 NGINX_VERSION=1.8.0
+ENV NPS_VERSION=1.10.33.7 NGINX_VERSION=1.9.13
 
 RUN yum -q update -y && \
     yum -q install -y wget unzip gcc-c++ pcre-devel zlib-devel make unzip \
@@ -18,16 +18,16 @@ RUN yum -q update -y && \
     sed -i 's/user.*/user = nginx/g' /etc/php-fpm.d/www.conf && \
     sed -i 's/group.*/group = nginx/g' /etc/php-fpm.d/www.conf && \
     cd /root && \
-    wget -q https://github.com/pagespeed/ngx_pagespeed/archive/release-${NPS_VERSION}-beta.zip -O release-${NPS_VERSION}-beta.zip && \
-    unzip -q release-${NPS_VERSION}-beta.zip && \
-    cd ngx_pagespeed-release-${NPS_VERSION}-beta/ && \
-    wget -q https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz && \
-    tar -xzf ${NPS_VERSION}.tar.gz && \
+    wget -q "https://github.com/pagespeed/ngx_pagespeed/archive/release-${NPS_VERSION}-beta.zip" -O "release-${NPS_VERSION}-beta.zip" && \
+    unzip -q "release-${NPS_VERSION}-beta.zip" && \
+    cd "ngx_pagespeed-release-${NPS_VERSION}-beta/" && \
+    wget -q "https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz" && \
+    tar -xzf "${NPS_VERSION}.tar.gz" && \
     cd /root && \
-    wget -q http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
-    tar -xzf nginx-${NGINX_VERSION}.tar.gz && \
-    cd nginx-${NGINX_VERSION}/ && \
-    ./configure --add-module=/root/ngx_pagespeed-release-${NPS_VERSION}-beta ${PS_NGX_EXTRA_FLAGS} && \
+    wget -q "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" && \
+    tar -xzf "nginx-${NGINX_VERSION}.tar.gz" && \
+    cd "nginx-${NGINX_VERSION}/" && \
+    ./configure --add-module="/root/ngx_pagespeed-release-${NPS_VERSION}-beta" "${PS_NGX_EXTRA_FLAGS}" && \
     make && \
     make install && \
     rm -f /etc/nginx/conf.d/* && \
