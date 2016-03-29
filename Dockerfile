@@ -13,7 +13,7 @@ RUN yum -q update -y && \
     adduser -r -m -d /var/cache/nginx -s /sbin/nologin nginx && \
     easy_install pip && \
     pip install supervisor && \
-    mkdir -p /var/log/supervisord/ && \
+    mkdir -p /var/log/supervisord/ /www /certs /configs && \
     sed -i 's/;cgi.fix_pathinfo.*/cgi.fix_pathinfo=0/g' /etc/php.ini && \
     sed -i 's/user.*/user = nginx/g' /etc/php-fpm.d/www.conf && \
     sed -i 's/group.*/group = nginx/g' /etc/php-fpm.d/www.conf && \
@@ -40,8 +40,8 @@ RUN yum -q update -y && \
 
 ADD nginx.conf /usr/local/nginx/conf/nginx.conf
 ADD nginx-default.conf /etc/nginx/conf.d/default.conf
-ADD supervisord.conf /supervisord.conf
+ADD supervisord.conf /etc/supervisor/supervisord.conf
 
-VOLUME ["/usr/share/nginx/html", "/etc/nginx/conf.d/"]
+VOLUME ["/www", "/certs", "/configs"]
 
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
+ENTRYPOINT ["/usr/bin/supervisord"]
