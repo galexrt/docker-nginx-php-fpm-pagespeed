@@ -2,7 +2,11 @@
 
 [![](https://images.microbadger.com/badges/image/galexrt/nginx-php-fpm.svg)](https://microbadger.com/images/galexrt/nginx-php-fpm "Get your own image badge on microbadger.com")
 
-[![Docker Repository on Quay](https://quay.io/repository/galexrt/nginx-php-fpm/status "Docker Repository on Quay")](https://quay.io/repository/galexrt/nginx-php-fpm)
+[![Docker Repository on Quay.io](https://quay.io/repository/galexrt/nginx-php-fpm/status "Docker Repository on Quay.io")](https://quay.io/repository/galexrt/zulip)
+
+Image available from:
+* [**Quay.io**](https://quay.io/repository/galexrt/nginx-php-fpm)
+* [**Docker Hub**](https://hub.docker.com/r/galexrt/nginx-php-fpm)
 
 This image contains nginx with Google PageSpeed and PHP-FPM.
 
