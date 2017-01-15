@@ -18,16 +18,17 @@ RUN yum -q update -y && \
     sed -i 's/user.*/user = nginx/g' /etc/php-fpm.d/www.conf && \
     sed -i 's/group.*/group = nginx/g' /etc/php-fpm.d/www.conf && \
     cd /root && \
-    wget -q "https://github.com/pagespeed/ngx_pagespeed/archive/release-${NPS_VERSION}-beta.zip" -O "release-${NPS_VERSION}-beta.zip" && \
-    unzip -q "release-${NPS_VERSION}-beta.zip" && \
-    cd "ngx_pagespeed-release-${NPS_VERSION}-beta/" && \
-    wget -q "https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz" && \
-    tar -xzf "${NPS_VERSION}.tar.gz" && \
+    wget https://github.com/pagespeed/ngx_pagespeed/archive/v${NPS_VERSION}-beta.zip && \
+    unzip v${NPS_VERSION}-beta.zip && \
+    cd ngx_pagespeed-${NPS_VERSION}-beta/ && \
+    psol_url=https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz && \
+    [ -e scripts/format_binary_url.sh ] && psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL) && \
+    wget ${psol_url} && \
+    tar -xzvf $(basename ${psol_url}) && \
     cd /root && \
-    wget -q "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" && \
-    tar -xzf "nginx-${NGINX_VERSION}.tar.gz" && \
-    cd "nginx-${NGINX_VERSION}/" && \
-    ./configure --add-module="/root/ngx_pagespeed-release-${NPS_VERSION}-beta" && \
+    tar -xvzf nginx-${NGINX_VERSION}.tar.gz && \
+    cd nginx-${NGINX_VERSION}/ && \
+    ./configure --add-module=$HOME/ngx_pagespeed-${NPS_VERSION}-beta ${PS_NGX_EXTRA_FLAGS} && \
     make && \
     make install && \
     rm -f /etc/nginx/conf.d/* && \
