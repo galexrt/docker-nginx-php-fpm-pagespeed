@@ -28,7 +28,7 @@ RUN yum -q update -y && \
     cd /root && \
     tar -xvzf nginx-${NGINX_VERSION}.tar.gz && \
     cd nginx-${NGINX_VERSION}/ && \
-    ./configure --add-module=$HOME/ngx_pagespeed-${NPS_VERSION}-beta ${PS_NGX_EXTRA_FLAGS} && \
+    ./configure --add-module=$HOME/ngx_pagespeed-${NPS_VERSION} ${PS_NGX_EXTRA_FLAGS} && \
     make && \
     make install && \
     rm -f /etc/nginx/conf.d/* && \
