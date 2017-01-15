@@ -2,7 +2,7 @@ FROM centos:7
 
 MAINTAINER Alexander Trost <galexrt@googlemail.com>
 
-ENV NPS_VERSION=v1.12.34.2-beta NGINX_VERSION=1.11.8
+ENV NPS_VERSION=1.12.34.2-beta NGINX_VERSION=1.11.8
 
 RUN yum -q update -y && \
     yum -q install -y wget unzip gcc-c++ pcre-devel zlib-devel make unzip \
