@@ -24,8 +24,9 @@ RUN yum -q update -y && \
     psol_url=https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz && \
     [ -e scripts/format_binary_url.sh ] && psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL) && \
     wget ${psol_url} && \
-    tar -xzvf $(basename ${psol_url}) && \
-    cd /root && \
+    tar -xzvf $(basename ${psol_url})
+
+RUN cd /root && \
     tar -xvzf nginx-${NGINX_VERSION}.tar.gz && \
     cd nginx-${NGINX_VERSION}/ && \
     ./configure --add-module=$HOME/ngx_pagespeed-${NPS_VERSION} ${PS_NGX_EXTRA_FLAGS} && \
