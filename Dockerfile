@@ -18,9 +18,9 @@ RUN yum -q update -y && \
     sed -i 's/user.*/user = nginx/g' /etc/php-fpm.d/www.conf && \
     sed -i 's/group.*/group = nginx/g' /etc/php-fpm.d/www.conf && \
     cd /root && \
-    wget https://github.com/pagespeed/ngx_pagespeed/archive/v${NPS_VERSION}-beta.zip && \
-    unzip v${NPS_VERSION}-beta.zip && \
-    cd ngx_pagespeed-${NPS_VERSION}-beta/ && \
+    wget https://github.com/pagespeed/ngx_pagespeed/archive/v${NPS_VERSION}.zip && \
+    unzip v${NPS_VERSION}.zip && \
+    cd ngx_pagespeed-${NPS_VERSION}/ && \
     psol_url=https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz && \
     [ -e scripts/format_binary_url.sh ] && psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL) && \
     wget ${psol_url} && \
