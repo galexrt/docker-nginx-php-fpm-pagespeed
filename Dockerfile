@@ -5,7 +5,7 @@ LABEL maintainer="Alexander Trost <galexrt@googlemail.com>"
 ENV NPS_VERSION=1.12.34.2-beta NGINX_VERSION=1.11.8
 
 RUN yum -q update -y && \
-    yum -q install -y wget unzip gcc-c++ pcre-devel zlib-devel make unzip \
+    yum -q install -y wget curl unzip pcre-devel make unzip \
         openssl python-setuptools php-fpm php-common php-mysql php-xml php-pgsql \
         php-pecl-memcache php-pdo php-odbc php-mysql php-mbstring php-ldap \
         php-intl php-gd php-bcmath php-soap php-process php-pear php-recode \
@@ -17,26 +17,16 @@ RUN yum -q update -y && \
     sed -i 's/;cgi.fix_pathinfo.*/cgi.fix_pathinfo=0/g' /etc/php.ini && \
     sed -i 's/user.*/user = nginx/g' /etc/php-fpm.d/www.conf && \
     sed -i 's/group.*/group = nginx/g' /etc/php-fpm.d/www.conf && \
-    cd /root && \
-    wget -q https://github.com/pagespeed/ngx_pagespeed/archive/v${NPS_VERSION}.zip && \
-    unzip v${NPS_VERSION}.zip && \
-    cd ngx_pagespeed-${NPS_VERSION}/ && \
-    psol_url=https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz && \
-    [ -e scripts/format_binary_url.sh ] && psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL) && \
-    wget -q ${psol_url} && \
-    tar -xzvf $(basename ${psol_url}) && \
-    cd /root && \
-    wget -q http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
-    tar -xvzf nginx-${NGINX_VERSION}.tar.gz && \
-    cd nginx-${NGINX_VERSION}/ && \
-    ./configure --add-module=$HOME/ngx_pagespeed-${NPS_VERSION} ${PS_NGX_EXTRA_FLAGS} && \
-    make && \
-    make install && \
+    cd && \
+    bash <(curl -f -L -sS https://ngxpagespeed.com/install) \
+        -y \
+        --nginx-version latest \
+        --ngx-pagespeed-version latest-stable  && \
     rm -f /etc/nginx/conf.d/* && \
     mkdir -p /var/ngx_pagespeed_cache /etc/nginx/conf.d/ /var/log/nginx /var/log/pagespeed /var/lib/php/session && \
     chown nginx:nginx -R /var/ngx_pagespeed_cache /var/log/pagespeed /var/lib/php/session && \
     rm -rf /root/* && \
-    yum -q remove -y wget unzip gcc-c++ pcre-devel zlib-devel make && \
+    yum -q remove -y wget curl unzip gcc-c++ pcre-devel zlib-devel make && \
     yum -q clean all && \
     rm -rf /tmp/* /var/tmp/* /var/lib/yum/* /var/cache/yum/*
 
