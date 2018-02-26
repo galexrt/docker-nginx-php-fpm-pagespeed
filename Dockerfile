@@ -1,6 +1,6 @@
 FROM centos:7
 
-MAINTAINER Alexander Trost <galexrt@googlemail.com>
+LABEL maintainer="Alexander Trost <galexrt@googlemail.com>"
 
 ENV NPS_VERSION=1.12.34.2-beta NGINX_VERSION=1.11.8
 
@@ -24,9 +24,8 @@ RUN yum -q update -y && \
     psol_url=https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz && \
     [ -e scripts/format_binary_url.sh ] && psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL) && \
     wget -q ${psol_url} && \
-    tar -xzvf $(basename ${psol_url})
-
-RUN cd /root && \
+    tar -xzvf $(basename ${psol_url}) && \
+    cd /root && \
     wget -q http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
     tar -xvzf nginx-${NGINX_VERSION}.tar.gz && \
     cd nginx-${NGINX_VERSION}/ && \
@@ -41,9 +40,9 @@ RUN cd /root && \
     yum -q clean all && \
     rm -rf /tmp/* /var/tmp/* /var/lib/yum/* /var/cache/yum/*
 
-ADD nginx.conf /usr/local/nginx/conf/nginx.conf
-ADD nginx-default.conf /etc/nginx/conf.d/default.conf
-ADD supervisord.conf /etc/supervisor/supervisord.conf
+COPY nginx.conf /usr/local/nginx/conf/nginx.conf
+COPY nginx-default.conf /etc/nginx/conf.d/default.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 VOLUME ["/www", "/certs", "/configs"]
 
